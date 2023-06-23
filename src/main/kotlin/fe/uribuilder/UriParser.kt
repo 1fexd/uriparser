@@ -9,6 +9,7 @@ import org.apache.hc.core5.net.URIAuthority
 import org.apache.hc.core5.util.Tokenizer
 import java.net.URI
 import java.net.URISyntaxException
+import java.net.URLEncoder
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 import java.util.*
@@ -108,7 +109,24 @@ object UriParser {
         return list
     }
 
-    fun parseUri(uri: URI, charset: Charset = StandardCharsets.UTF_8): ParsedUri {
+    fun parseUri(uriString: String): URI {
+        var uri = uriString
+
+        val firstHashIndex = uri.indexOf("#")
+        if (firstHashIndex > -1 && uri.indexOf("#", firstHashIndex + 1) > -1) {
+            uri = uri.substring(0, firstHashIndex) + "#" + URLEncoder.encode(
+                uri.substring(firstHashIndex + 1),
+                StandardCharsets.UTF_8
+            )
+        }
+
+        return URI(uri)
+    }
+
+
+    fun parseUri(uriString: String, charset: Charset = StandardCharsets.UTF_8): ParsedUri {
+        val uri = parseUri(uriString)
+
         val scheme = uri.scheme
         val encodedSchemeSpecificPart = uri.rawSchemeSpecificPart
         val encodedAuthority = uri.rawAuthority
