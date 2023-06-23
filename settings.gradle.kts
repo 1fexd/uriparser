@@ -1,1 +1,1 @@
-rootProject.name = "uribuilder"
+rootProject.name = "uriparser"
