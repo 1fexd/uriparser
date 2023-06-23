@@ -68,7 +68,7 @@ public final class URIAuthority implements NamedEndpoint, Serializable {
         return new URIAuthority(userInfo, host);
     }
 
-    static URIAuthority parse(final CharSequence s) throws URISyntaxException {
+    public static URIAuthority parse(final CharSequence s) throws URISyntaxException {
         final Tokenizer.Cursor cursor = new Tokenizer.Cursor(0, s.length());
         return parse(s, cursor);
     }

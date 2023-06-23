@@ -48,14 +48,8 @@ public class Args {
         }
     }
 
-    public static void check(final boolean expression, final String message, final Object arg) {
-        if (!expression) {
-            throw new IllegalArgumentException(String.format(message, arg));
-        }
-    }
-
     public static int checkRange(final int value, final int lowInclusive, final int highInclusive,
-                    final String message) {
+                                 final String message) {
         if (value < lowInclusive || value > highInclusive) {
             throw illegalArgumentException("%s: %d is out of range [%d, %d]", message, value,
                     lowInclusive, highInclusive);

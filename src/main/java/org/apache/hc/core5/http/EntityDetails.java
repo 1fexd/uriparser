@@ -27,8 +27,6 @@
 
 package org.apache.hc.core5.http;
 
-import java.util.Set;
-
 /**
  * Details of an entity transmitted by a message.
  *

@@ -43,7 +43,7 @@ public class PercentCodec {
     static final BitSet GEN_DELIMS = new BitSet(256);
     static final BitSet SUB_DELIMS = new BitSet(256);
     static final BitSet UNRESERVED = new BitSet(256);
-    static final BitSet URIC = new BitSet(256);
+    public static final BitSet URIC = new BitSet(256);
 
     static {
         GEN_DELIMS.set(':');
@@ -86,8 +86,8 @@ public class PercentCodec {
 
     private static final int RADIX = 16;
 
-    static void encode(final StringBuilder buf, final CharSequence content, final Charset charset,
-                       final BitSet safechars, final boolean blankAsPlus) {
+    public static void encode(final StringBuilder buf, final CharSequence content, final Charset charset,
+                              final BitSet safechars, final boolean blankAsPlus) {
         if (content == null) {
             return;
         }
@@ -109,7 +109,7 @@ public class PercentCodec {
         }
     }
 
-    static void encode(final StringBuilder buf, final CharSequence content, final Charset charset, final boolean blankAsPlus) {
+    public static void encode(final StringBuilder buf, final CharSequence content, final Charset charset, final boolean blankAsPlus) {
         encode(buf, content, charset, UNRESERVED, blankAsPlus);
     }
 
@@ -126,7 +126,7 @@ public class PercentCodec {
         return buf.toString();
     }
 
-    static String decode(final CharSequence content, final Charset charset, final boolean plusAsBlank) {
+    public static String decode(final CharSequence content, final Charset charset, final boolean plusAsBlank) {
         if (content == null) {
             return null;
         }
