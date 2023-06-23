@@ -25,10 +25,10 @@ object UriParser {
     }
 
     private val QUERY_VALUE_SEPARATORS: BitSet = BitSet(256).apply {
-        set(PARAM_VALUE_SEPARATOR.code)
+        set(QUERY_PARAM_SEPARATOR.code)
     }
 
-    private val PATH_SEPARATORS: BitSet = BitSet(256).apply { set(QUERY_PARAM_SEPARATOR.code) }
+    private val PATH_SEPARATORS: BitSet = BitSet(256).apply { set(PATH_SEPARATOR.code) }
 
     private fun parsePath(s: CharSequence, charset: Charset): List<String> {
         return splitPath(s).map {
