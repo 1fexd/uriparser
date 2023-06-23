@@ -109,7 +109,7 @@ object UriParser {
         return list
     }
 
-    fun parseUri(uriString: String): URI {
+    private fun parseUri(uriString: String): URI {
         var uri = uriString
 
         val firstHashIndex = uri.indexOf("#")
