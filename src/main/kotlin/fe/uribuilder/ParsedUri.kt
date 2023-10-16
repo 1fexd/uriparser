@@ -36,7 +36,7 @@ data class ParsedUri(
         return URI(buildString())
     }
 
-    private fun formatPath(
+    fun formatPath(
         buf: StringBuilder,
         segments: Iterable<String?>,
         rootless: Boolean,
@@ -51,7 +51,7 @@ data class ParsedUri(
         }
     }
 
-    private fun formatQuery(
+    fun formatQuery(
         buf: StringBuilder, params: Iterable<NameValuePair>, charset: Charset?,
         blankAsPlus: Boolean
     ) {
