@@ -109,6 +109,7 @@ object UriParser {
         return list
     }
 
+    @Throws(URISyntaxException::class)
     private fun parseUri(uriString: String): URI {
         var uri = uriString
 
@@ -124,8 +125,12 @@ object UriParser {
     }
 
 
-    fun parseUri(uriString: String, charset: Charset = StandardCharsets.UTF_8): ParsedUri {
-        val uri = parseUri(uriString)
+    fun parseUri(uriString: String, charset: Charset = StandardCharsets.UTF_8): UriParseResult {
+        val uri = try {
+            parseUri(uriString)
+        } catch (e: URISyntaxException) {
+            return UriParseResult.ParserFailure(e)
+        }
 
         val scheme = uri.scheme
         val encodedSchemeSpecificPart = uri.rawSchemeSpecificPart
@@ -161,7 +166,7 @@ object UriParser {
         val encodedFragment = uri.rawFragment
         val fragment = uri.fragment
 
-        return ParsedUri(
+        return UriParseResult.ParsedUri(
             scheme,
             encodedSchemeSpecificPart,
             encodedAuthority,
