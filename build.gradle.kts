@@ -13,6 +13,8 @@ repositories {
 }
 
 dependencies {
+    testImplementation("org.hamcrest:hamcrest:2.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.1")
     testImplementation(kotlin("test"))
 }
 

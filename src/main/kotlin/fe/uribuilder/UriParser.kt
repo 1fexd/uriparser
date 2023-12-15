@@ -14,6 +14,8 @@ import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 import java.util.*
 
+// This is quite literally a stolen Kotlin adaption of Apache's httpcomponent-core's org.apache.hc.core5.net.URIBuilder
+// All credit goes to them
 object UriParser {
     const val QUERY_PARAM_SEPARATOR = '&'
     const val PARAM_VALUE_SEPARATOR = '='
