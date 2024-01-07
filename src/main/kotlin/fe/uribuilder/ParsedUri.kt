@@ -55,19 +55,16 @@ sealed class UriParseResult {
             }
         }
 
-        fun formatQuery(
-            buf: StringBuilder, params: Iterable<NameValuePair>, charset: Charset?,
-            blankAsPlus: Boolean
-        ) {
+        fun formatQuery(buf: StringBuilder, params: Iterable<NameValuePair>, charset: Charset?) {
             for ((i, parameter) in params.withIndex()) {
                 if (i > 0) {
                     buf.append(UriParser.QUERY_PARAM_SEPARATOR)
                 }
 
-                PercentCodec.encode(buf, parameter.name, charset, blankAsPlus)
+                PercentCodec.encode(buf, parameter.name, charset)
                 if (parameter.value != null) {
                     buf.append(UriParser.PARAM_VALUE_SEPARATOR)
-                    PercentCodec.encode(buf, parameter.value, charset, blankAsPlus)
+                    PercentCodec.encode(buf, parameter.value, charset)
                 }
             }
         }
@@ -129,7 +126,7 @@ sealed class UriParseResult {
                         append("?").append(encodedQuery)
                     } else if (queryParams.isNotEmpty()) {
                         append("?")
-                        formatQuery(this, queryParams, charset, false)
+                        formatQuery(this, queryParams, charset)
                     }
                 }
 

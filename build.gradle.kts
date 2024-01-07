@@ -1,8 +1,12 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
-    java
+    kotlin("jvm") version "1.9.22"
+    `java-library`
     `maven-publish`
-    kotlin("jvm") version "1.8.21"
     id("net.nemerosa.versioning") version "3.0.0"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
+
 }
 
 group = "fe.uribuilder"
@@ -12,10 +16,36 @@ repositories {
     mavenCentral()
 }
 
+val implementation: Configuration by configurations
+val shadowImplementation: Configuration by configurations.creating
+implementation.extendsFrom(shadowImplementation)
+
 dependencies {
+    api(kotlin("stdlib"))
+
+    shadowImplementation("org.apache.httpcomponents.core5:httpcore5:5.3-alpha1")
+
     testImplementation("org.hamcrest:hamcrest:2.2")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.1")
     testImplementation(kotlin("test"))
+}
+
+kotlin {
+    jvmToolchain(11)
+}
+
+val shadowJarTask = tasks.named<ShadowJar>("shadowJar") {
+    mergeServiceFiles()
+    exclude("META-INF/**/*")
+
+    archiveClassifier.set("")
+    minimize()
+    configurations = listOf(shadowImplementation)
+}
+
+
+tasks.named("jar").configure {
+    enabled = false
 }
 
 tasks.test {
@@ -24,11 +54,17 @@ tasks.test {
 
 publishing {
     publications {
-        create<MavenPublication>("maven") {
+        create<MavenPublication>("shadow") {
+            setArtifacts(listOf(shadowJarTask.get()))
             groupId = project.group.toString()
             version = project.version.toString()
-
-            from(components["java"])
         }
+    }
+}
+
+tasks.whenTaskAdded {
+    if (name == "generateMetadataFileForPluginShadowPublication") {
+        println(name)
+        dependsOn(shadowJarTask)
     }
 }

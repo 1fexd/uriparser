@@ -75,7 +75,7 @@ object UriParser {
         return list
     }
 
-    private fun parseQuery(s: CharSequence?, charset: Charset?, plusAsBlank: Boolean): List<NameValuePair> {
+    private fun parseQuery(s: CharSequence?, charset: Charset?): List<NameValuePair> {
         if (s == null) {
             return emptyList()
         }
@@ -102,8 +102,8 @@ object UriParser {
             if (name.isNotEmpty()) {
                 list.add(
                     BasicNameValuePair(
-                        PercentCodec.decode(name, charset, plusAsBlank),
-                        PercentCodec.decode(value, charset, plusAsBlank)
+                        PercentCodec.decode(name, charset),
+                        PercentCodec.decode(value, charset)
                     )
                 )
             }
@@ -149,7 +149,7 @@ object UriParser {
         var userInfo = uri.userInfo
         if (encodedAuthority != null && host == null) {
             try {
-                val uriAuthority = URIAuthority.parse(encodedAuthority)
+                val uriAuthority = URIAuthority.create(encodedAuthority)
                 encodedUserInfo = uriAuthority.userInfo
                 userInfo = PercentCodec.decode(uriAuthority.userInfo, charset)
                 host = PercentCodec.decode(uriAuthority.hostName, charset)
@@ -163,7 +163,7 @@ object UriParser {
         val pathRootless = uri.rawPath == null || !uri.rawPath.startsWith("/")
         val encodedQuery = uri.rawQuery
 
-        val queryParams = parseQuery(uri.rawQuery, charset, false)
+        val queryParams = parseQuery(uri.rawQuery, charset)
 
         val encodedFragment = uri.rawFragment
         val fragment = uri.fragment
