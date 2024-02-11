@@ -16,9 +16,10 @@ repositories {
     mavenCentral()
 }
 
-val implementation: Configuration by configurations
-val shadowImplementation: Configuration by configurations.creating
-implementation.extendsFrom(shadowImplementation)
+val shadowImplementation = configurations.create("shadowImplementation"){
+    configurations.implementation.get().extendsFrom(this)
+    isTransitive = false
+}
 
 dependencies {
     api(kotlin("stdlib"))
