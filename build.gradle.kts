@@ -1,12 +1,11 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
-    kotlin("jvm") version "1.9.22"
+    kotlin("jvm") version "1.9.23"
     `java-library`
     `maven-publish`
     id("net.nemerosa.versioning") version "3.0.0"
     id("com.github.johnrengelman.shadow") version "8.1.1"
-
 }
 
 group = "fe.uribuilder"
@@ -24,7 +23,7 @@ val shadowImplementation = configurations.create("shadowImplementation"){
 dependencies {
     api(kotlin("stdlib"))
 
-    shadowImplementation("org.apache.httpcomponents.core5:httpcore5:5.3-alpha1")
+    api("org.apache.httpcomponents.core5:httpcore5:5.3-alpha1")
 
     testImplementation("org.hamcrest:hamcrest:2.2")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.1")
