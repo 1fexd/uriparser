@@ -31,7 +31,7 @@ dependencies {
 }
 
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(17)
 }
 
 val shadowJarTask = tasks.named<ShadowJar>("shadowJar") {
