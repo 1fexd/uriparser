@@ -22,7 +22,8 @@ val shadowImplementation = configurations.create("shadowImplementation"){
 
 dependencies {
     api(kotlin("stdlib"))
-    api("org.apache.httpcomponents.core5:httpcore5:5.3-alpha1")
+    api(platform("com.github.1fexd.super:platform:0.0.1"))
+    api("org.apache.httpcomponents.core5:httpcore5")
 
     testImplementation("org.hamcrest:hamcrest:2.2")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.2")
